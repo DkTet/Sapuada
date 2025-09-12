@@ -1,23 +1,28 @@
 extends Area2D
 class_name MathBall
 
-signal ball_destroyed(value: int, ball_node: MathBall)  # Adiciona parâmetro
+signal ball_destroyed(value: int)
 
-var ball_value: int = 0
-var movement_speed: float = 80.0
+@export var ball_value: int = 1
+@export var movement_speed: float = 80.0
 var path_follow: PathFollow2D
 
-@onready var label: Label = $numero
+#⭐⭐ MUDANÇA AQUI: Verificação de null ⭐⭐
+@onready var label = $Label
 
 func _ready():
-	add_to_group("bolas")
-	if ball_value != 0:
+	if label:
 		label.text = str(ball_value)
+	else:
+		print("ERRO: Label não encontrado! Filhos: ", get_children())
+
+	add_to_group("bolas")
 
 func _process(delta):
 	if path_follow:
 		path_follow.progress += movement_speed * delta
 		global_position = path_follow.global_position
+		global_rotation = path_follow.global_rotation
 
 		if path_follow.progress_ratio >= 1.0:
 			destroy()
@@ -26,18 +31,9 @@ func setup(path_follow_node: PathFollow2D, value: int, speed: float):
 	path_follow = path_follow_node
 	ball_value = value
 	movement_speed = speed
-	if label:
+	if label:  # ⬅️ Verificação aqui também
 		label.text = str(ball_value)
 
 func destroy():
-	# EMITE O SINAL COM A REFERÊNCIA DA BOLA
-	ball_destroyed.emit(ball_value, self)
-	
-	# Destrói a bola e seu path_follow
-	if is_instance_valid(path_follow):
-		path_follow.queue_free()
+	ball_destroyed.emit(ball_value)
 	queue_free()
-
-func _on_area_entered(area):
-	if area.is_in_group("lingua"):
-		destroy()

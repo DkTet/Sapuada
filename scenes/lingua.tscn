@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_cx8ui"]
 radius = 36.0555
 
-[node name="lingua" type="Area2D"]
+[node name="lingua" type="Area2D" groups=["lingua"]]
 top_level = true
 script = ExtResource("1_cx8ui")
 
