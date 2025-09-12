@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://biin7vjkawkv8"]
+[gd_scene load_steps=5 format=3 uid="uid://bu3ykcd84aoaw"]
 
 [ext_resource type="PackedScene" uid="uid://b4gbywbosltb" path="res://scenes/sapo.tscn" id="1_8dnef"]
 [ext_resource type="Script" uid="uid://dhbj6r15yhtfe" path="res://scripts/fase_1.gd" id="1_u5pyp"]
