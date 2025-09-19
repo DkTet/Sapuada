@@ -57,6 +57,7 @@ func gerar_equacao_baseada_em_bolas():
 	
 	var valor_alvo = valores_bolas.pick_random()
 	resultado_atual = valor_alvo
+	print(valor_alvo)
 	
 	var a = 0
 	var b = 0
