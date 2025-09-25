@@ -3,4 +3,6 @@ res://pause.gdshader
 res://scenes/menu.tscn
 res://scenes/pause_menu.tscn
 res://scenes/fase 1 certo.tscn
-res://scripts/fase_1.gd
+res://scripts/pause_menu.gd
+res://scenes/fase_1_certo.gd
+res://scenes/lingua.tscn

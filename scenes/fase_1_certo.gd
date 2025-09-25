@@ -1,5 +1,7 @@
 extends Node2D
 
+const PAUSE_MENU = preload("res://scenes/pause_menu.tscn")
+
 @onready var path = $Path2D
 @onready var timer = $Timer
 @onready var label_equacao = $CanvasLayer/Label
@@ -140,3 +142,10 @@ func _on_bola_destroyed(value:int, ball_node: MathBall):
 		gerar_equacao_baseada_em_bolas()
 	else:
 		print("❌ Errou! Valor:", value, "| Esperado:", resultado_atual)
+		
+
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel"):
+		var pause_menu_instance = PAUSE_MENU.instantiate()
+		add_child(pause_menu_instance)
+		get_tree().paused = true
