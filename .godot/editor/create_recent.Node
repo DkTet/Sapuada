@@ -1,3 +1,9 @@
+Label
+Sprite2D
+Timer
+AnimatedSprite2D
+Area2D
+Path2D
 ColorRect
 Button
 VBoxContainer
@@ -6,6 +12,3 @@ AnimationPlayer
 AnimationTree
 PanelContainer
 TextureButton
-GridContainer
-Label
-MarginContainer

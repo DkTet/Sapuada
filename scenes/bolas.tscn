@@ -1,7 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://buyc5rktwafcy"]
+[gd_scene load_steps=8 format=3 uid="uid://buyc5rktwafcy"]
 
 [ext_resource type="Script" uid="uid://r34l2q2iy6nt" path="res://scripts/bolas.gd" id="1_c2227"]
-[ext_resource type="Texture2D" uid="uid://bk8ur5pdl6f2v" path="res://assets/bolas.svg" id="2_7rxq1"]
+[ext_resource type="Texture2D" uid="uid://d1wu6hcp8cggk" path="res://assets/bee/bee_move_1.png" id="2_7rxq1"]
+[ext_resource type="Texture2D" uid="uid://hs54sqintdf" path="res://assets/bee/bee_dead_1.png" id="2_clf0s"]
+[ext_resource type="Texture2D" uid="uid://dnmhgxvqal37m" path="res://assets/bee/bee_move_2.png" id="3_6ecr2"]
+[ext_resource type="FontFile" uid="uid://drapyqg6uu0ga" path="res://assets/fonts/Retro Gaming.ttf" id="4_6ecr2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_clf0s"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_clf0s")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"morte",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7rxq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6ecr2")
+}],
+"loop": true,
+"name": &"voando",
+"speed": 7.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ecr2"]
 radius = 100.02
@@ -9,10 +38,11 @@ radius = 100.02
 [node name="bolas" type="Area2D"]
 script = ExtResource("1_c2227")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(450, 222)
-scale = Vector2(7.74011, 8.25045)
-texture = ExtResource("2_7rxq1")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-20, -33)
+sprite_frames = SubResource("SpriteFrames_clf0s")
+animation = &"morte"
+frame_progress = 0.298397
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
@@ -20,14 +50,16 @@ shape = SubResource("CircleShape2D_6ecr2")
 
 [node name="numero" type="Label" parent="."]
 unique_name_in_owner = true
-modulate = Color(0.948007, 0.902399, 1.54018e-06, 1)
-self_modulate = Color(0.679402, 0.679402, 0, 1)
-offset_left = -86.0
-offset_top = -85.0
-offset_right = -4.0
-offset_bottom = 15.0
+offset_left = -127.0
+offset_top = -104.0
+offset_right = -10.0
+offset_bottom = 11.0
 scale = Vector2(2.11518, 1.75711)
-theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.568627, 0.968627, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("4_6ecr2")
+theme_override_font_sizes/font_size = 70
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3

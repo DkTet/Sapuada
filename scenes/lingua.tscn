@@ -1,7 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://dccic3rijahwa"]
+[gd_scene load_steps=8 format=3 uid="uid://dccic3rijahwa"]
 
 [ext_resource type="Script" uid="uid://q0ccqcat5dgs" path="res://scripts/lingua.gd" id="1_cx8ui"]
-[ext_resource type="Texture2D" uid="uid://cgvpbu856be72" path="res://assets/Sapo.svg" id="1_u4idt"]
+[ext_resource type="Texture2D" uid="uid://c4llsajf5bl4j" path="res://assets/cuspe/cuspe_1.png" id="2_xkwqy"]
+[ext_resource type="Texture2D" uid="uid://hjk2sjot2p0a" path="res://assets/cuspe/cuspe_2.png" id="3_47qs8"]
+[ext_resource type="Texture2D" uid="uid://djverps7hxqce" path="res://assets/cuspe/cuspe_3.png" id="4_bqh86"]
+[ext_resource type="Texture2D" uid="uid://dcr3ahwa3d8ge" path="res://assets/cuspe/cuspe_4.png" id="5_gdpo5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cwq1p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xkwqy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_47qs8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bqh86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gdpo5")
+}],
+"loop": false,
+"name": &"cuspe",
+"speed": 6.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cx8ui"]
 radius = 36.0555
@@ -10,11 +33,12 @@ radius = 36.0555
 top_level = true
 script = ExtResource("1_cx8ui")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.113725, 0.254902, 1, 1)
-position = Vector2(-1, -2.38419e-07)
-scale = Vector2(0.27204, 0.226625)
-texture = ExtResource("1_u4idt")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-48, 9)
+rotation = 1.57079
+scale = Vector2(0.458394, 0.458394)
+sprite_frames = SubResource("SpriteFrames_cwq1p")
+animation = &"cuspe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 9)

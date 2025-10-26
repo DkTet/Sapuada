@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var linguada_cooldown := 0.8   # tempo em segundos entre linguadas
+@export var linguada_cooldown := 0.6   # tempo em segundos entre linguadas
 var cd_lingua := true
 
 func _process(delta):

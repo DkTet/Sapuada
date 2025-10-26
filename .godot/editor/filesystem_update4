@@ -1,0 +1,14 @@
+res://scenes/menu.tscn
+res://scripts/pause_menu.gd
+res://pause.gdshader
+res://scenes/pause_menu.tscn
+res://scenes/fase 1 certo.tscn
+res://scenes/lingua.tscn
+res://scenes/bolas.tscn
+res://scripts/bolas.gd
+res://scripts/lingua.gd
+res://scripts/fase_1_certo.gd
+res://scripts/fase_1.gd
+res://scripts/sapo.gd
+res://menu.gd
+res://scenes/game_over.tscn
