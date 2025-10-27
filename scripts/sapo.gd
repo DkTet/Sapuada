@@ -1,7 +1,14 @@
 extends Node2D
 
-@export var linguada_cooldown := 0.8   # tempo em segundos entre linguadas
+@export var linguada_cooldown := 0.6 
+@onready var frog_spit  = $FrogSpit
+@onready var sprite = $Sprite2D
+var frog_normal = preload("res://assets/frog/frog.png")
+var frog_picado = preload("res://assets/frog/frog_spitted_2.png")
 var cd_lingua := true
+
+func _ready() -> void:
+	sprite.texture = frog_normal
 
 func _process(delta):
 	# Faz o sapo olhar para o mouse
@@ -13,6 +20,7 @@ func linguada():
 	
 	# instancia a língua
 	const lingua = preload("res://scenes/lingua.tscn")
+	frog_spit.play()
 	var new_lingua = lingua.instantiate()
 	new_lingua.global_position = %boca.global_position
 	new_lingua.global_rotation = %boca.global_rotation
@@ -27,3 +35,8 @@ func _input(event):
 	# clique do mouse faz dar linguada
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		linguada()
+
+func morrer():
+	sprite.texture = frog_picado
+	await get_tree().create_timer(1.0).timeout
+	sprite.texture = frog_normal
