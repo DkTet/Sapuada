@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="Sapuada"
+config/description="SAPUADA é um jogo 2D no estilo arcade onde o jogador controla um sapo faminto. O objetivo é resolver equações de multiplicação que aparecem na tela, \"cuspindo\" e acertando as abelhas que carregam o número da resposta correta"
+config/version="1.0.0.0"
 run/main_scene="uid://ctjpv16fi7pt6"
-config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/bg_color=Color(0.031214688, 0.111224346, 3.6098065e-08, 1)
+config/icon="uid://bu8cu7s4s4u6u"
 
 [input]
 
