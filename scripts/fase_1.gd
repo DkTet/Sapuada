@@ -1,12 +1,18 @@
 extends Node2D
 const PAUSE_MENU = preload("res://scenes/pause_menu.tscn")
+const GAME_OVER_SCREEN = preload("res://scenes/game_over_screen.tscn")
 
 @onready var path = $Path2D
 @onready var timer = $Timer 
+@onready var ui_canvas = $CanvasLayer
 @onready var label_equacao = $CanvasLayer/Label
 @onready var score_label = $CanvasLayer/ScoreLabel
 @onready var lives_label = $CanvasLayer/LivesLabel
+@onready var bee_hitted = $BeeHitted
+@onready var frog_hitted = $FrogHitted
+@onready var frog_gameover = $FrogGameOver
 @export var ball_scene: PackedScene
+@onready var frog = $Sapo
 @onready var _produtos_validos: Array = _gerar_produtos_validos_array()
 
 var bolas = []
@@ -21,7 +27,7 @@ var score: int = 0:
 		if score_label:
 			score_label.text = "Score: %d" % score
 		_update_difficulty()
-var lives: int = 5: # Você pode mudar para 3 ou 5 aqui
+var lives: int = 5: 
 	set(value):
 		lives = value
 		if lives == 5:
@@ -56,7 +62,7 @@ func _ready():
 	timer.start()
 	gerar_equacao_baseada_em_bolas()
 	if $ScoreTimer:
-		$ScoreTimer.timeout.connect(_on_score_timer_timeout)
+		pass
 
 func _update_difficulty():
 	var new_level = 1 + int(score / 80)
@@ -161,6 +167,7 @@ func valor_existe_em_bolas(valor: int) -> bool:
 func _on_bola_destroyed(value:int, ball_node: MathBall):
 	if value == resultado_atual:
 		print("🎉 Acertou! Valor:", value)
+		bee_hitted.play()
 		ball_node.destroy()
 		score += int((value * 2) / 3)
 		gerar_equacao_baseada_em_bolas()
@@ -180,12 +187,16 @@ func _on_score_timer_timeout():
 func _on_ball_reached_end():
 	if game_over:
 		return
+	frog_hitted.play()
+	frog.morrer()
 	self.lives -= 1
 
 func _game_over():
-	print("GAME OVER")
 	game_over = true
-	get_tree().paused = true # Para o jogo
-	# (Opcional) Mostra uma tela de Game Over
-	# var game_over_screen = preload("res://game_over.tscn").instantiate()
-	# add_child(game_over_screen)
+	get_tree().paused = true 
+	frog_gameover.play()
+	await await get_tree().create_timer(0.9).timeout
+	ui_canvas.hide()
+	var game_over_instance = GAME_OVER_SCREEN.instantiate()
+	add_child(game_over_instance)
+	game_over_instance.setup(score)
