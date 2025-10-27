@@ -60,11 +60,15 @@ func _ready():
 	timer.timeout.connect(_on_Timer_timeout)
 	timer.wait_time = current_spawn_rate
 	timer.start()
-	gerar_equacao_baseada_em_bolas()
+	resultado_atual = -1
 	if $ScoreTimer:
-		pass
+		$ScoreTimer.timeout.connect(_on_score_timer_timeout)
+	await get_tree().create_timer(10.0).timeout
+	gerar_equacao_baseada_em_bolas()
+	
 
 func _update_difficulty():
+	@warning_ignore("integer_division")
 	var new_level = 1 + int(score / 80)
 	if new_level == difficulty_level:
 		return 
@@ -102,14 +106,15 @@ func spawn_ball():
 	bolas.append(ball)
 	follow.loop = false
 
-func _process(delta):
+func _process(_delta):
 	for i in range(bolas.size() - 1, -1, -1):
 		if not is_instance_valid(bolas[i]):
 			bolas.remove_at(i)
-	if resultado_atual == 0 or not valor_existe_em_bolas(resultado_atual):
+	if resultado_atual != -1 and (resultado_atual == 0 or not valor_existe_em_bolas(resultado_atual)):
 		gerar_equacao_baseada_em_bolas()
 
 func gerar_equacao_baseada_em_bolas():
+	
 	var valores_bolas = get_valores_bolas_em_campo()
 	var valores_validos = valores_bolas.filter(func(v): return _produtos_validos.has(v))
 	if valores_validos.is_empty():
@@ -148,7 +153,6 @@ func gerar_equacao_baseada_em_bolas():
 		var temp = a
 		a = b
 		b = temp
-
 	label_equacao.text = "%d x %d = ?" % [a, b]
 
 func get_valores_bolas_em_campo() -> Array:
@@ -169,10 +173,12 @@ func _on_bola_destroyed(value:int, ball_node: MathBall):
 		print("🎉 Acertou! Valor:", value)
 		bee_hitted.play()
 		ball_node.destroy()
+		@warning_ignore("integer_division")
 		score += int((value * 2) / 3)
 		gerar_equacao_baseada_em_bolas()
 	else:
 		print("❌ Errou! Valor:", value, "| Esperado:", resultado_atual)
+		@warning_ignore("integer_division")
 		score -= int((value * 3 / 4))
 
 func _unhandled_input(event):
